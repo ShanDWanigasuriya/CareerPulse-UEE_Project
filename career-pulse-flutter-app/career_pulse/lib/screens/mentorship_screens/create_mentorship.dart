@@ -121,7 +121,7 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
         );
 
         // Navigate back or reset form after success
-        Navigator.pushReplacementNamed(context, '/mentors');
+        Navigator.pushReplacementNamed(context, '/mentor');
       } else {
         // Handle failure (e.g., show error message)
         ScaffoldMessenger.of(context).showSnackBar(
