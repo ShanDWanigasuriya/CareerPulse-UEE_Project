@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[GetAllEvents]
+AS
+BEGIN
+
+	SELECT E.* FROM [Event] E ORDER BY E.EventId DESC FOR JSON PATH
+
+END

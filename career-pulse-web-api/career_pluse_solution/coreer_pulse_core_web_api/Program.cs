@@ -37,6 +37,8 @@ builder.Services.AddSingleton<IDatabaseService>(provider =>
 builder.Services.AddSingleton<IMemberService, MemberServiceImpl>();
 builder.Services.AddSingleton<IMentorshipService, MentorshipServiceImpl>();
 builder.Services.AddSingleton<IProjectService, ProjectServiceImpl>();
+builder.Services.AddSingleton<IJobService, JobServiceImpl>();
+builder.Services.AddSingleton<IEventService, EventServiceImpl>();
 #endregion
 
 var app = builder.Build();

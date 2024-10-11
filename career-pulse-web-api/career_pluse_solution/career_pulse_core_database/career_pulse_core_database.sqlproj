@@ -61,6 +61,8 @@
     <Folder Include="StoredProcedures\Member" />
     <Folder Include="StoredProcedures\Mentorship" />
     <Folder Include="StoredProcedures\Project" />
+    <Folder Include="StoredProcedures\Job" />
+    <Folder Include="StoredProcedures\Event" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Member.sql" />
@@ -74,5 +76,13 @@
     <Build Include="Tables\TimeSlot.sql" />
     <Build Include="StoredProcedures\Mentorship\GetAllMentorships.sql" />
     <Build Include="StoredProcedures\Mentorship\GetMentorshipsById.sql" />
+    <Build Include="StoredProcedures\Job\CreateJob.sql" />
+    <Build Include="Tables\Job.sql" />
+    <Build Include="StoredProcedures\Job\GetAllJobs.sql" />
+    <Build Include="StoredProcedures\Job\GetJobById.sql" />
+    <Build Include="Tables\Event.sql" />
+    <Build Include="StoredProcedures\Event\CreateEvent.sql" />
+    <Build Include="StoredProcedures\Event\GetAllEvents.sql" />
+    <Build Include="StoredProcedures\Event\GetEventById.sql" />
   </ItemGroup>
 </Project>

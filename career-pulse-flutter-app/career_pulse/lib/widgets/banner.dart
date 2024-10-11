@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../Utils/constants.dart';
 
 class BannerToExplore extends StatelessWidget {
   const BannerToExplore({super.key});

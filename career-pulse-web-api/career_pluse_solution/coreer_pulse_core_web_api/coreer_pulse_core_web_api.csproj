@@ -18,6 +18,8 @@
   <ItemGroup>
     <Folder Include="Uploads\Member\" />
     <Folder Include="Uploads\Mentorship\" />
+    <Folder Include="Uploads\Job\" />
+    <Folder Include="Uploads\Event\" />
     <Folder Include="Uploads\Project\" />
   </ItemGroup>
 

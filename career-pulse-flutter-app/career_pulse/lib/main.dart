@@ -7,6 +7,10 @@ import 'screens/login.dart';
 import 'screens/mentorship_screens/create_mentorship.dart';
 import 'screens/mentorship_screens/mentor.dart';
 import 'widgets/loading_screen.dart';
+import './screens/job_screens/job.dart';
+import './screens/job_screens/create_job.dart';
+import './screens/event_screens/event.dart';
+import './screens/event_screens/create_event.dart';
 
 void main() {
   runApp(const MyApp());
@@ -31,7 +35,11 @@ class MyApp extends StatelessWidget {
         '/project': (context) => const ProjectScreen(),
         '/createProject': (context) => const CreateProjectScreen(),
         '/mentor': (context) => const MentorScreen(),
-        '/createMentor': (context) => const CreateMentorScreen()
+        '/createMentor': (context) => const CreateMentorScreen(),
+        '/job': (context) => const JobScreen(),
+        '/createJob': (context) => const CreateJobScreen(),
+        '/event': (context) => const EventScreen(),
+        '/createevent': (context) => const CreateEventScreen(),
       },
     );
   }

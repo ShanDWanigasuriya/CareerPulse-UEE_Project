@@ -1,4 +1,3 @@
-// custom_drawer.dart
 import 'package:flutter/material.dart';
 
 class SideNavigation extends StatelessWidget {
@@ -10,31 +9,37 @@ class SideNavigation extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Color(0xFF001F54), // Navy blue header background
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(
-                  Icons.menu, // Icon in the header
-                  size: 40,
-                  color: Colors.white,
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Menu',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            child: Center(
+              child: Image.asset(
+                'assets/Dev2.png', // Replace with the path to your logo
+                height: 80, // Adjust the size of the logo as needed
+                fit: BoxFit.contain, // Make sure the logo fits well
+              ),
             ),
           ),
-          // Project Opportunities
+          
+          // Home List Item
+          ListTile(
+            leading: const Icon(Icons.home_outlined,
+                color: Color(0xFF001F54)), // Icon for list item
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                fontSize: 18,
+                color: Color(0xFF001F54), // Navy blue text
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, '/home');
+            },
+          ),
+
+          // Project Opportunities List Item
           ListTile(
             leading: const Icon(Icons.work_outline,
                 color: Color(0xFF001F54)), // Icon for list item
@@ -50,7 +55,8 @@ class SideNavigation extends StatelessWidget {
               Navigator.pushNamed(context, '/project');
             },
           ),
-          // Mentorships
+
+          // Mentorships List Item
           ListTile(
             leading: const Icon(Icons.school_outlined,
                 color: Color(0xFF001F54)), // Icon for list item
@@ -66,7 +72,8 @@ class SideNavigation extends StatelessWidget {
               Navigator.pushNamed(context, '/mentor');
             },
           ),
-          // Jobs
+
+          // Jobs List Item
           ListTile(
             leading: const Icon(Icons.business_center_outlined,
                 color: Color(0xFF001F54)), // Icon for list item
@@ -79,10 +86,10 @@ class SideNavigation extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/jobs');
+              Navigator.pushNamed(context, '/job');
             },
           ),
-          // Events
+          // Events List Item
           ListTile(
             leading: const Icon(Icons.event_available_outlined,
                 color: Color(0xFF001F54)), // Icon for list item
@@ -95,7 +102,7 @@ class SideNavigation extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/events');
+              Navigator.pushNamed(context, '/event');
             },
           ),
         ],
