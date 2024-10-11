@@ -26,29 +26,29 @@ namespace coreer_pulse_core_web_api.Controllers
 
             //create new guid for user
             var mentorshipGlobalIdentity = Guid.NewGuid();
-            string mentorshipImageFileUri = string.Empty;
+            string mentorDocumentFileUri = string.Empty;
 
             //store profile image
-            if (mentorship.MentorshipImage != null && mentorship.MentorshipImage.Length > 0)
+            if (mentorship.MentorDocument != null && mentorship.MentorDocument.Length > 0)
             {
-                var mentorshipImagesFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads/Mentorship");
+                var mentorDocumentFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Uploads/Mentorship");
 
-                var mentorshipImageFileName = mentorshipGlobalIdentity.ToString() + "-" + mentorship.MentorshipImage.FileName;
-                var mentorshipImageFilePath = Path.Combine(mentorshipImagesFolderPath, mentorshipImageFileName);
+                var mentorDocumentFileName = mentorshipGlobalIdentity.ToString() + "-" + mentorship.MentorDocument.FileName;
+                var mentorDocumentFilePath = Path.Combine(mentorDocumentFolderPath, mentorDocumentFileName);
 
-                using (var stream = new FileStream(mentorshipImageFilePath, FileMode.Create))
+                using (var stream = new FileStream(mentorDocumentFilePath, FileMode.Create))
                 {
-                    await mentorship.MentorshipImage.CopyToAsync(stream);
+                    await mentorship.MentorDocument.CopyToAsync(stream);
                 }
 
-                mentorshipImageFileUri = Path.Combine("/Uploads/Mentorship", mentorshipImageFileName).Replace("\\", "/");
+				mentorDocumentFileUri = Path.Combine("/Uploads/Mentorship", mentorDocumentFileName).Replace("\\", "/");
             }
 
-            mentorship.MentorshipImageUrl = mentorshipImageFileUri;
+            mentorship.MentorDocumentUrl = mentorDocumentFileUri;
             mentorship.MentorshipGlobalIdentity = mentorshipGlobalIdentity;
 
             var status = await _mentorshipService.CreateMentorship(mentorship);
-            return Ok(status);
+            return StatusCode(201, status);
         }
     }
 }

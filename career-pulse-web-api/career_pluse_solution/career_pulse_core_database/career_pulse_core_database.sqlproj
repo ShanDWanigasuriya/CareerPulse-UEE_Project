@@ -71,5 +71,6 @@
     <Build Include="StoredProcedures\Project\CreateProject.sql" />
     <Build Include="StoredProcedures\Project\GetAllProjects.sql" />
     <Build Include="StoredProcedures\Project\GetProjectById.sql" />
+    <Build Include="Tables\TimeSlot.sql" />
   </ItemGroup>
 </Project>
