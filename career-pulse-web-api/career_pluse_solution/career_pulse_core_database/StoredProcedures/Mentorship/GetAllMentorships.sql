@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[GetAllMentorships]
+AS
+BEGIN
+
+	SELECT M.* FROM Mentorship M ORDER BY M.MentorshipId DESC FOR JSON PATH
+
+END

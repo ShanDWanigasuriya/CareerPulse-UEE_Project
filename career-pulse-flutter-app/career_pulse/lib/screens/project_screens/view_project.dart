@@ -91,8 +91,8 @@ class _ViewProjectState extends State<ViewProject> {
 
                       // Status label with color
                       Container(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 12),
                         decoration: BoxDecoration(
                           color: _getStatusColor(project.projectStatus),
                           borderRadius: BorderRadius.circular(20),

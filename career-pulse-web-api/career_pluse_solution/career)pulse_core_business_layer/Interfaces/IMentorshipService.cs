@@ -10,5 +10,7 @@ namespace career_pulse_core_business_layer.Interfaces
     public interface IMentorshipService
     {
         Task<bool> CreateMentorship(Mentorship mentorship);
-    }
+        Task<IEnumerable<Mentorship>> GetAllMentorships();
+        Task<Mentorship> GetMentorshipsById(int mentorshipId);
+	}
 }
