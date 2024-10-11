@@ -11,14 +11,15 @@ class MentorScreen extends StatefulWidget {
 }
 
 class _MentorScreenState extends State<MentorScreen> {
-  // Track the selected label (0 for "All", 1 for "Available", 2 for "Unavailable")
+  // Track the selected label (0 for "All", 1 for "Ongoing", 2 for "Completed")
   int _selectedLabelIndex = 0;
-  late Future<List<Mentorsip>> futureMentors;
+
+  late Future<List<Mentorship>> futureMentorships;
 
   @override
   void initState() {
     super.initState();
-    futureMentors = MentorService().getAllMentors(); // Fetch mentors on init
+    futureMentorships = MentorService().getAllMentorships(); // Fetch mentorships on init
   }
 
   @override
@@ -36,29 +37,29 @@ class _MentorScreenState extends State<MentorScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildLabel('All', 0),
-                _buildLabel('Available', 1),
-                _buildLabel('Unavailable', 2),
+                _buildLabel('Ongoing', 1),
+                _buildLabel('Completed', 2),
               ],
             ),
           ),
+          // Vertical list of mentorships
           Expanded(
-            child: FutureBuilder<List<Mentorsip>>(
-              future: futureMentors,
+            child: FutureBuilder<List<Mentorship>>(
+              future: futureMentorships,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(child: Text('No mentors available'));
+                  return const Center(child: Text('No mentorships available'));
                 }
 
-                // Mentors loaded successfully
-                final mentors = snapshot.data!;
+                final mentorships = snapshot.data!;
                 return ListView.builder(
-                  itemCount: mentors.length,
+                  itemCount: mentorships.length,
                   itemBuilder: (context, index) {
-                    return _buildMentorCard(mentors[index]);
+                    return _buildMentorshipCard(mentorships[index]);
                   },
                 );
               },
@@ -68,7 +69,7 @@ class _MentorScreenState extends State<MentorScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigate to mentor creation screen
+          // Define what happens when the button is pressed, e.g. navigate to mentorship creation screen
           Navigator.pushNamed(context, '/createMentor');
         },
         backgroundColor: const Color(0xFF001F54), // Navy blue color
@@ -87,7 +88,7 @@ class _MentorScreenState extends State<MentorScreen> {
         setState(() {
           _selectedLabelIndex = index;
         });
-        // Optionally, filter the list of mentors based on the selected label
+        // Optionally, filter the list of mentorships based on the selected label
       },
       child: Text(
         label,
@@ -102,7 +103,7 @@ class _MentorScreenState extends State<MentorScreen> {
     );
   }
 
-  Widget _buildMentorCard(Mentorsip mentor) {
+  Widget _buildMentorshipCard(Mentorship mentorship) {
     return Card(
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -114,47 +115,50 @@ class _MentorScreenState extends State<MentorScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Mentorship title
             Text(
-              mentor.mentorName,
+              mentorship.mentorshipTitle,
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 4),
+            // Mentor name
             Text(
-              mentor.mentorDescription,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
+              'Mentor: ${mentorship.mentorName}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 4),
+            // Mentor description
+            Text(
+              mentorship.mentorDescription,
+              style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Expertise: ${mentor.expertise}', // Expertise field
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'Availability: ${mentor.isAvailable ? 'Available' : 'Unavailable'}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to ViewMentor with the fetched mentor details
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ViewMentor(mentorId: mentor.mentorId),
+            // View button aligned to the right
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ViewMentorship(
+                          mentorshipId: mentorship.mentorshipId!,
+                        ),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
                   ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+                  child: const Text('View'),
                 ),
-              ),
-              child: const Text('View'),
+              ],
             ),
           ],
         ),

@@ -50,5 +50,20 @@ namespace coreer_pulse_core_web_api.Controllers
             var status = await _mentorshipService.CreateMentorship(mentorship);
             return StatusCode(201, status);
         }
-    }
+
+        [HttpGet("GetAllMentorships")]
+        public async Task<IActionResult> GetAllMentorships()
+        {
+            var mentorships = await _mentorshipService.GetAllMentorships();
+            return Ok(mentorships);
+        }
+
+		[HttpGet("GetMentorshipsById")]
+		public async Task<IActionResult> GetMentorshipsById(int mentorshipId)
+		{
+			var mentorship = await _mentorshipService.GetMentorshipsById(mentorshipId);
+			return Ok(mentorship);
+		}
+
+	}
 }

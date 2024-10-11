@@ -4,77 +4,73 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import '../models/mentor.dart'; // Import your Mentor model
-import './global_settings.dart';
+import './global_settings.dart'; // Assuming you have baseApiUrl defined here
 
 class MentorService {
-  Future<bool> createMentor(Mentorsip mentor, File? mentorDocument) async {
+  Future<bool> createMentor(Mentorship mentor, File? mentorDocument) async {
     var uri = Uri.parse('$baseApiUrl/Mentorship/CreateMentorship');
     var request = http.MultipartRequest('POST', uri);
 
     // Add the mentor fields as part of the form data
-    request.fields['mentorshipId'] = mentor.mentorshipId.toString();
-    request.fields['mentorId'] = mentor.mentorId.toString();
-    request.fields['collaboratorId'] = mentor.collaboratorId.toString();
+    request.fields['mentorshipId'] = mentor.mentorshipId?.toString() ?? '0';  // Default to '0' for new mentorships
     request.fields['mentorshipTitle'] = mentor.mentorshipTitle;
     request.fields['mentorshipDescription'] = mentor.mentorshipDescription;
     request.fields['mentorName'] = mentor.mentorName;
     request.fields['mentorDescription'] = mentor.mentorDescription;
-    request.fields['experience'] = mentor.experience;
-    request.fields['expertise'] = mentor.expertise;
+    request.fields['mentorExperience'] = mentor.mentorExperience;
+    request.fields['mentorExpertise'] = mentor.mentorExpertise;
 
     // Attach the mentor document if available
     if (mentorDocument != null) {
-      var mimeType = lookupMimeType(mentorDocument.path);
+      var mimeType = lookupMimeType(mentorDocument.path) ?? 'application/octet-stream';
       var fileStream = http.ByteStream(mentorDocument.openRead());
       var fileLength = await mentorDocument.length();
 
       request.files.add(
         http.MultipartFile(
-          'mentorDocument',
+          'mentorDocument', // Name of the file field in the API
           fileStream,
           fileLength,
           filename: mentorDocument.path.split('/').last,
-          contentType: MediaType.parse(mimeType ?? 'application/octet-stream'),
+          contentType: MediaType.parse(mimeType),
         ),
       );
     }
 
     // Send the request
-    var response = await request.send();
-
-    // Check for success response
-    if (response.statusCode == 201) {
-      return true; // Successful mentor creation
-    } else {
-      return false; // Mentor creation failed
+    try {
+      var response = await request.send();
+      if (response.statusCode == 201) {
+        return true; // Mentor created successfully
+      } else {
+        return false; // Mentor creation failed
+      }
+    } catch (e) {
+      return false;
     }
   }
 
-  // Method to fetch all mentors
-  Future<List<Mentorsip>> getAllMentors() async {
-    var uri = Uri.parse('$baseApiUrl/Mentor/GetAllMentors');
-    var response = await http.get(uri);
-
-    // Check for success response
+  // Method to get all mentorship details
+  Future<List<Mentorship>> getAllMentorships() async {
+    final response = await http.get(Uri.parse('$baseApiUrl/Mentorship/GetAllMentorships'));
+    
     if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      return jsonResponse.map((mentor) => Mentorsip.fromJson(mentor)).toList();
+      List<dynamic> jsonData = jsonDecode(response.body);
+      return jsonData.map((json) => Mentorship.fromJson(json)).toList();
     } else {
-      throw Exception('Failed to load mentors');
+      throw Exception('Failed to load mentorships');
     }
   }
 
-  // Method to get a mentor by ID
-  Future<Mentorsip> getMentorById(int mentorId) async {
-    var uri = Uri.parse(
-        '$baseApiUrl/Mentor/GetMentorById?mentorId=$mentorId'); // Adjust your endpoint
-    var response = await http.get(uri);
+  // Method to get a specific mentorship by ID
+  Future<Mentorship> getMentorshipById(int mentorshipId) async {
+    final response = await http.get(Uri.parse('$baseApiUrl/Mentorship/GetMentorshipsById?mentorshipId=$mentorshipId'));
 
-    // Check for success response
     if (response.statusCode == 200) {
-      return Mentorsip.fromJson(json.decode(response.body));
+      final jsonData = jsonDecode(response.body);
+      return Mentorship.fromJson(jsonData); // Return the Mentorship object
     } else {
-      throw Exception('Failed to load mentor');
+      throw Exception('Failed to load mentorship with ID: $mentorshipId');
     }
   }
 }

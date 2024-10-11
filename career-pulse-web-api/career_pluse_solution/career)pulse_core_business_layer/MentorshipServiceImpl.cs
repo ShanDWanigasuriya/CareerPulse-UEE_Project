@@ -28,5 +28,20 @@ namespace career_pulse_core_business_layer
             bool status = _mentorshipRepository.InsertData("CreateMentorship", mentorshipJsonString);
             return status;
         }
-    }
+
+		public async Task<IEnumerable<Mentorship>> GetAllMentorships()
+		{
+			var mentorships = _mentorshipRepository.RetrieveData("GetAllMentorships");
+			return mentorships;
+		}
+
+		public async Task<Mentorship> GetMentorshipsById(int mentorshipId)
+		{
+			var mentorship = _mentorshipRepository.RetrieveData("GetMentorshipsById", new Microsoft.Data.SqlClient.SqlParameter[]
+            {
+                new Microsoft.Data.SqlClient.SqlParameter("@mentorshipId", mentorshipId)
+            }).FirstOrDefault();
+			return mentorship;
+		}
+	}
 }

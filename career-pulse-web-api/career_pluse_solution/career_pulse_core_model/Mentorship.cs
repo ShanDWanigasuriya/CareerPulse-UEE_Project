@@ -11,9 +11,9 @@ namespace career_pulse_core_model
 {
     public class Mentorship
     {
-        public int MentorshipId { get; set; }
-        public int MentorId { get; set; }
-        public int CollaboratorId { get; set; }
+        public int? MentorshipId { get; set; }
+        public int? MentorId { get; set; }
+        public int? CollaboratorId { get; set; }
         public string MentorshipTitle { get; set; } = string.Empty;
         public string MentorshipDescription { get; set; } = string.Empty;
         public string MentorName { get; set; } = string.Empty;
