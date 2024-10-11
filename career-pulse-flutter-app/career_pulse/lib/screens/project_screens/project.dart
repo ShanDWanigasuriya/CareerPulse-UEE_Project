@@ -90,8 +90,7 @@ class _VerticalListState extends State<VerticalList> {
   @override
   void initState() {
     super.initState();
-    futureProjects =
-        ProjectService().getAllProjects(); // Fetch projects on init
+    futureProjects = ProjectService().getAllProjects(); // Fetch projects on init
   }
 
   @override
@@ -131,6 +130,7 @@ class _VerticalListState extends State<VerticalList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Project title
             Text(
               project.projectName,
               style: const TextStyle(
@@ -139,51 +139,53 @@ class _VerticalListState extends State<VerticalList> {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              project.projectDescription,
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 8),
+            // Project status
             Text(
               'Status: ${project.projectStatus}', // Map this to meaningful status names as needed
               style: const TextStyle(fontSize: 16),
             ),
-            Text(
-              'Start Date: ${project.startDate.toLocal().toString().split(' ')[0]}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              'End Date: ${project.endDate.toLocal().toString().split(' ')[0]}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  // Navigate to ViewProject with the fetched project details
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ViewProject(projectId: project.projectId),
-                    ),
-                  );
-                } catch (error) {
-                  // Handle error (e.g., show a message to the user)
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error: ${error.toString()}')),
-                  );
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+            const SizedBox(height: 8),
+            // Dates side by side
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Start Date: ${project.startDate.toLocal().toString().split(' ')[0]}',
+                  style: const TextStyle(fontSize: 16),
                 ),
-              ),
-              child: const Text('View'),
+              ],
+            ),
+            const SizedBox(height: 8),
+            // View button aligned to the right
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end, // Align the button to the right
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      // Navigate to ViewProject with the fetched project details
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ViewProject(projectId: project.projectId),
+                        ),
+                      );
+                    } catch (error) {
+                      // Handle error (e.g., show a message to the user)
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: ${error.toString()}')),
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: const Text('View'),
+                ),
+              ],
             ),
           ],
         ),
@@ -191,3 +193,4 @@ class _VerticalListState extends State<VerticalList> {
     );
   }
 }
+
