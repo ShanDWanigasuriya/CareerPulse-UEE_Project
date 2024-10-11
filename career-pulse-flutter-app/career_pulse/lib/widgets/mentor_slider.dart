@@ -21,7 +21,7 @@ class MentorHorizontalSlider extends StatelessWidget {
       width: 250, // Adjust width as needed
       margin: const EdgeInsets.only(left: 10),
       decoration: BoxDecoration(
-        color: Colors.blueAccent,
+        color: Color(0xFF001F54),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Center(

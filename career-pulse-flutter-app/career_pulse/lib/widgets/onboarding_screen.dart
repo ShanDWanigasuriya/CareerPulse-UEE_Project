@@ -125,7 +125,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    backgroundColor: Color(0xFF0286FF),
+                    backgroundColor: Color(0xFF001F54),
                   ),
                   child: Text(
                     isLastSlide ? "Get Started" : "Next",

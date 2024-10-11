@@ -19,7 +19,8 @@ class _MentorScreenState extends State<MentorScreen> {
   @override
   void initState() {
     super.initState();
-    futureMentorships = MentorService().getAllMentorships(); // Fetch mentorships on init
+    futureMentorships =
+        MentorService().getAllMentorships(); // Fetch mentorships on init
   }
 
   @override
@@ -105,38 +106,65 @@ class _MentorScreenState extends State<MentorScreen> {
 
   Widget _buildMentorshipCard(Mentorship mentorship) {
     return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      elevation: 6,
+      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Mentorship title
+            // Mentorship title with a professional color and improved font
             Text(
               mentorship.mentorshipTitle,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 28,
                 fontWeight: FontWeight.bold,
+                color: Colors.black87,
               ),
             ),
-            const SizedBox(height: 4),
-            // Mentor name
+            const SizedBox(height: 8),
+
             Text(
-              'Mentor: ${mentorship.mentorName}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 4),
-            // Mentor description
-            Text(
-              mentorship.mentorDescription,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
+              mentorship.mentorshipDescription,
+              style: const TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(221, 44, 1, 1),
+              ),
             ),
             const SizedBox(height: 8),
-            // View button aligned to the right
+
+            // Mentor name with spacing and slight color change
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  'By ${mentorship.mentorName}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+
+            // Mentor description with a more professional tone
+            // Text(
+            //   mentorship.mentorDescription,
+            //   style: const TextStyle(
+            //     fontSize: 14,
+            //     color: Colors.black45,
+            //     height: 1.5,
+            //   ),
+            // ),
+            // const SizedBox(height: 12),
+
+            // View button aligned to the right, with updated style
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -152,11 +180,23 @@ class _MentorScreenState extends State<MentorScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 30,
+                    ),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    backgroundColor: const Color(0xFF001F54),
+                    elevation: 4,
+                  ),
+                  child: const Text(
+                    'View',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
                     ),
                   ),
-                  child: const Text('View'),
                 ),
               ],
             ),

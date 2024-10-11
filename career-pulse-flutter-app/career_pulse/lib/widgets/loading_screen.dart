@@ -7,7 +7,7 @@ class LoadingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(47, 128, 224, 1.0), // RGB(47, 128, 224)
+        backgroundColor: Color(0xFF001F54), // RGB(47, 128, 224)
         body: Center(
           child: GestureDetector(
             onTap: () {
@@ -18,8 +18,8 @@ class LoadingScreen extends StatelessWidget {
               );
             },
             child: Image.asset(
-              'assets/dev.png', // Image should be placed in the assets folder
-              height: 200, // Adjust the size as needed
+              'assets/Dev2.png', // Image should be placed in the assets folder
+              height: 100, // Adjust the size as needed
               fit: BoxFit.contain,
             ),
           ),

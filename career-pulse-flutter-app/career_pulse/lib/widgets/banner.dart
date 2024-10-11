@@ -11,7 +11,7 @@ class BannerToExplore extends StatelessWidget {
       height: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: const Color.fromARGB(255, 18, 108, 252),
+        color: Color(0xFF001F54),
       ),
       child: Stack(
         children: [
