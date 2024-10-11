@@ -9,10 +9,9 @@ class ProfileTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Sample data
-    const String profileImageUrl =
-        'https://via.placeholder.com/150'; // Placeholder image URL
-    const String fullName = 'John Doe';
-    const String email = 'johndoe@example.com';
+    const String profileImageUrl = 'assets/user.jpg'; // Placeholder image URL
+    const String fullName = 'Shan Dilhara Wanigasuriya';
+    const String email = 'shandilhara97@gmil.com';
     const String memberType = 'Mentor'; // Example member type
 
     return Scaffold(
@@ -32,7 +31,7 @@ class ProfileTab extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 50,
-                    backgroundImage: NetworkImage(profileImageUrl),
+                    backgroundImage: AssetImage(profileImageUrl),
                   ),
                   SizedBox(height: 16),
                   Text(

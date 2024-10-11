@@ -267,10 +267,10 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
 
               // Mentor Document upload
               ListTile(
-                title: const Text("Upload Mentor Document"),
+                title: const Text("Upload Mentor Image"),
                 subtitle: _mentorDocument != null
                     ? Text('Document: ${_mentorDocument!.path}')
-                    : const Text('No document selected'),
+                    : const Text('No Image selected'),
                 trailing: IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: _clearDocument,
@@ -282,7 +282,18 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
               // Submit button
               ElevatedButton(
                 onPressed: _submitMentor,
-                child: const Text('Submit'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF001F54), // Background color
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                    color: Colors.white, // Set the text color to white
+                  ),
+                ),
               ),
             ],
           ),

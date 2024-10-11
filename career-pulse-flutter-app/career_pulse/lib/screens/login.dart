@@ -52,6 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 0), // Reduce this value as needed
               Expanded(
                 child: Center(
                   child: SingleChildScrollView(
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 10),
                               // Welcome text
                               const Text(
                                 'Welcome!',

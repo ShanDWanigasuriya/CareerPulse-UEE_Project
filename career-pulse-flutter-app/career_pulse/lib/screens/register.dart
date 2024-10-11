@@ -52,8 +52,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     // Call register method in AuthService with a nullable profile image
-    var success = await _authService.register(
-        member, _profileImage); // _profileImage can be null
+    var success = await _authService.register(member, _profileImage);
 
     if (success) {
       Navigator.pushReplacementNamed(context, '/home');
@@ -65,107 +64,196 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Image.asset('assets/Dev2.png'),
-            // Username
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Username',
-                border: OutlineInputBorder(),
-              ),
+      body: Stack(
+        children: [
+          // Background color (Navy blue)
+          Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFF001F54),
             ),
-            const SizedBox(height: 20),
-            // Password
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 90.0),
+                child: Center(
+                  child: Image.asset(
+                    'assets/Dev2.png',
+                    height: 100,
+                  ),
+                ),
               ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 20),
-            // Member Type Dropdown
-            DropdownButtonFormField<int>(
-              value: _selectedMemberType,
-              decoration: const InputDecoration(
-                labelText: 'Member Type',
-                border: OutlineInputBorder(),
-              ),
-              items: const [
-                DropdownMenuItem(value: 1, child: Text('Collaborator')),
-                DropdownMenuItem(value: 2, child: Text('Mentor')),
-                DropdownMenuItem(value: 3, child: Text('Job Seeker')),
-                DropdownMenuItem(value: 4, child: Text('Community Member')),
-              ],
-              onChanged: (value) {
-                setState(() {
-                  _selectedMemberType = value!;
-                });
-              },
-            ),
-            const SizedBox(height: 20),
-            // Full Name
-            TextField(
-              controller: _fullNameController,
-              decoration: const InputDecoration(
-                labelText: 'Full Name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Email
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
-            // Profile Image Upload
-            Row(
-              children: [
-                _profileImage != null
-                    ? Image.file(
-                        _profileImage!,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      )
-                    : const Icon(
-                        Icons.person,
-                        size: 100,
-                        color: Colors.grey,
+              Expanded(
+                child: Center(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        elevation: 10,
+                        color: Colors.white.withOpacity(0.9),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const SizedBox(height: 20),
+                              // Welcome text
+                              const Text(
+                                'Register',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              // Username TextField
+                              TextField(
+                                controller: _usernameController,
+                                decoration: InputDecoration(
+                                  labelText: 'Username',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  prefixIcon: const Icon(Icons.person),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              // Password TextField
+                              TextField(
+                                controller: _passwordController,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  prefixIcon: const Icon(Icons.lock),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                ),
+                                obscureText: true,
+                              ),
+                              const SizedBox(height: 20),
+                              // Member Type Dropdown
+                              DropdownButtonFormField<int>(
+                                value: _selectedMemberType,
+                                decoration: const InputDecoration(
+                                  labelText: 'Member Type',
+                                  border: OutlineInputBorder(),
+                                ),
+                                items: const [
+                                  DropdownMenuItem(
+                                      value: 1, child: Text('Collaborator')),
+                                  DropdownMenuItem(
+                                      value: 2, child: Text('Mentor')),
+                                  DropdownMenuItem(
+                                      value: 3, child: Text('Job Seeker')),
+                                  DropdownMenuItem(
+                                      value: 4,
+                                      child: Text('Community Member')),
+                                ],
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedMemberType = value!;
+                                  });
+                                },
+                              ),
+                              const SizedBox(height: 20),
+                              // Full Name TextField
+                              TextField(
+                                controller: _fullNameController,
+                                decoration: InputDecoration(
+                                  labelText: 'Full Name',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  prefixIcon: const Icon(Icons.person),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              // Email TextField
+                              TextField(
+                                controller: _emailController,
+                                decoration: InputDecoration(
+                                  labelText: 'Email',
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  prefixIcon: const Icon(Icons.email),
+                                  filled: true,
+                                  fillColor: Colors.white70,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              // Profile Image Upload
+                              // Profile Image Upload
+                              ListTile(
+                                title: const Text("Upload Profile Image"),
+                                subtitle: _profileImage != null
+                                    ? Text('Image: ${_profileImage!.path}')
+                                    : const Text('No Image selected'),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () {
+                                    setState(() {
+                                      _profileImage =
+                                          null; // Clear the selected image
+                                    });
+                                  },
+                                ),
+                                onTap: _pickImage,
+                              ),
+
+                              const SizedBox(height: 30),
+                              // Register Button
+                              ElevatedButton(
+                                onPressed: _register,
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 50, vertical: 15),
+                                  backgroundColor: const Color(0xFF001F54),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 5,
+                                ),
+                                child: const Text(
+                                  'Register',
+                                  style: TextStyle(
+                                      fontSize: 18, color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(height: 15),
+                              // Already have an account? Login link
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/login');
+                                },
+                                child: const Text(
+                                  'Already have an account? Login',
+                                  style: TextStyle(
+                                      color: Color(0xFF001F54), fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                const SizedBox(width: 10),
-                ElevatedButton(
-                  onPressed: _pickImage,
-                  child: const Text('Upload Profile Image'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            // Register Button
-            ElevatedButton(
-              onPressed: _register,
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                backgroundColor: Colors.blueAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
                 ),
               ),
-              child: const Text('Register'),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
