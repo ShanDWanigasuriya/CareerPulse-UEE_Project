@@ -68,12 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              // App logo or icon (optional)
-                              const Icon(
-                                Icons.lock,
-                                size: 80,
-                                color: Color(0xFF001F54),
-                              ),
                               const SizedBox(height: 20),
                               // Welcome text
                               const Text(

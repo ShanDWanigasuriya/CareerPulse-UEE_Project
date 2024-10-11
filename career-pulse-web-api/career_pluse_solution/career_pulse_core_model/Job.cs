@@ -15,8 +15,8 @@ namespace career_pulse_core_model
         public int PostedMemberId { get; set; }
         public string JobTitle { get; set; } = string.Empty;
         public string JobDecription { get; set; } = string.Empty;
-        public JobTypeEnum JobTypeEnum { get; set; }
-        public string DocumentUrl { get; set; } = string.Empty;
+        public string JobTypeEnum { get; set; } = string.Empty;
+		public string DocumentUrl { get; set; } = string.Empty;
         public string JobImageUrl { get; set; } = string.Empty;
         [DefaultValue("true")]
         public bool IsPublic { get; set; }

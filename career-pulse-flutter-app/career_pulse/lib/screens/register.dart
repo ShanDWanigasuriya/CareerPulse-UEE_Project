@@ -70,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            Image.asset('assets/DEV_SPARK.jpg'),
+            Image.asset('assets/Dev2.png'),
             // Username
             TextField(
               controller: _usernameController,
