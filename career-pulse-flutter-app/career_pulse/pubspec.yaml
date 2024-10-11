@@ -1,6 +1,6 @@
 name: career_pulse
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -17,11 +17,16 @@ dependencies:
   file_picker: ^8.1.2
   dio: ^5.7.0
   path_provider: ^2.1.4
+  flutter_swiper_null_safety: ^1.0.2
+  carousel_slider: ^4.2.0
+  flutter_lints: ^4.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/

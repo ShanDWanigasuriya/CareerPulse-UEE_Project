@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 // Horizontal Slider Widget
-class HorizontalSlider extends StatelessWidget {
-  const HorizontalSlider({super.key});
+class MentorHorizontalSlider extends StatelessWidget {
+  const MentorHorizontalSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HorizontalSlider extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-          'Event ${index + 1}',
+          'Mentor ${index + 1}',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 18,

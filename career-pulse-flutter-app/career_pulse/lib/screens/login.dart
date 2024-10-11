@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-//import '../services/authservice.dart';
+import '../services/authservice.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,13 +11,14 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
-  //final _authService = AuthService();
+  final _authService = AuthService();
 
   _login() async {
+    var username = _usernameController.text;
+    var password = _passwordController.text;
     Navigator.pushReplacementNamed(context, '/home');
-    // var username = _usernameController.text;
-    // var password = _passwordController.text;
     // var member = await _authService.login(username, password);
+
     // if (member != null) {
     //   // Navigate to home
     //   Navigator.pushReplacementNamed(context, '/home');
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
           // Background image
           Container(
             decoration: const BoxDecoration(
-              color: Color(0xFF001F54), // Navy blue color
+              color: Color.fromRGBO(47, 128, 224, 1.0), // Navy blue color
             ),
           ),
           Center(
@@ -103,7 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: _login,
                           style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 15), backgroundColor: Colors.blueAccent,
+                                horizontal: 50, vertical: 15),
+                            backgroundColor: Colors.blueAccent,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

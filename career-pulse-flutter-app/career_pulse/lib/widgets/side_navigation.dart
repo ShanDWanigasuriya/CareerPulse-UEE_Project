@@ -63,7 +63,7 @@ class SideNavigation extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.pushNamed(context, '/mentorships');
+              Navigator.pushNamed(context, '/mentor');
             },
           ),
           // Jobs

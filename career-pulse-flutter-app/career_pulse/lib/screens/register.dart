@@ -52,7 +52,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
 
     // Call register method in AuthService with a nullable profile image
-    var success = await _authService.register(member, _profileImage); // _profileImage can be null
+    var success = await _authService.register(
+        member, _profileImage); // _profileImage can be null
 
     if (success) {
       Navigator.pushReplacementNamed(context, '/home');
@@ -69,6 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            Image.asset('assets/DEV_SPARK.jpg'),
             // Username
             TextField(
               controller: _usernameController,
