@@ -5,18 +5,32 @@
 AS
 BEGIN
 
-	INSERT INTO [Mentorship]([MentorId], [MentorshipTitle], [MentorshipDescription], [MentorshipTypeEnum], [MentorshipImageUrl], [StartDate], [EndDate], [MentorshipGlobalIdentity])
-	SELECT [MentorId], [MentorshipTitle], [MentorshipDescription], [MentorshipTypeEnum], [MentorshipImageUrl], [StartDate], [EndDate], [MentorshipGlobalIdentity]
+	DECLARE @mentorshipId INT;
+
+	INSERT INTO [Mentorship]([MentorId], [CollaboratorId], [MentorshipTitle], [MentorshipDescription], [MentorName], [MentorDescription], [MentorExperience], [MentorExpertise], [MentorDocumentUrl], [MentorshipGlobalIdentity])
+	SELECT [MentorId], [CollaboratorId], [MentorshipTitle], [MentorshipDescription], [MentorName], [MentorDescription], [MentorExperience], [MentorExpertise], [MentorDocumentUrl], [MentorshipGlobalIdentity]
 	FROM OPENJSON(@jsonString, '$')
 	WITH(
 		[MentorId] INT,
-		[MentorshipTitle] NVARCHAR(MAX),
-		[MentorshipDescription] NVARCHAR(MAX),
-		[MentorshipTypeEnum] INT,
-		[MentorshipImageUrl] NVARCHAR(MAX),
-		[StartDate] DATETIME,
-		[EndDate] DATETIME,
+		[CollaboratorId] INT,
+		[MentorshipTitle] NVARCHAR(MAX) ,
+		[MentorshipDescription] NVARCHAR(MAX) ,
+		[MentorName] NVARCHAR(MAX) ,
+		[MentorDescription] NVARCHAR(MAX) ,
+		[MentorExperience] NVARCHAR(MAX) ,
+		[MentorExpertise] NVARCHAR(MAX) ,
+		[MentorDocumentUrl] NVARCHAR(MAX) ,
 		[MentorshipGlobalIdentity] UNIQUEIDENTIFIER
+	);
+
+	SET @mentorshipId = SCOPE_IDENTITY();
+
+	INSERT INTO TimeSlot([MentorshipId], [StartDate], [EndDate])
+	SELECT @mentorshipId, [StartDate], [EndDate]
+	FROM OPENJSON(@jsonString, '$.TimeSlot')
+	WITH(
+		[StartDate] DATETIME,
+		[EndDate] DATETIME 
 	);
 
 	SET @executionStatus = 1;
