@@ -1,0 +1,7 @@
+﻿CREATE PROCEDURE [dbo].[GetAllProjects]
+AS
+BEGIN
+
+	SELECT P.* FROM [Project] P FOR JSON PATH
+
+END
