@@ -8,12 +8,15 @@ import './global_settings.dart';
 
 class MentorService {
   Future<bool> createMentor(Mentorsip mentor, File? mentorDocument) async {
-    var uri = Uri.parse('$baseApiUrl/Mentor/CreateMentor');
+    var uri = Uri.parse('$baseApiUrl/Mentorship/CreateMentorship');
     var request = http.MultipartRequest('POST', uri);
 
     // Add the mentor fields as part of the form data
+    request.fields['mentorshipId'] = mentor.mentorshipId.toString();
     request.fields['mentorId'] = mentor.mentorId.toString();
     request.fields['collaboratorId'] = mentor.collaboratorId.toString();
+    request.fields['mentorshipTitle'] = mentor.mentorshipTitle;
+    request.fields['mentorshipDescription'] = mentor.mentorshipDescription;
     request.fields['mentorName'] = mentor.mentorName;
     request.fields['mentorDescription'] = mentor.mentorDescription;
     request.fields['experience'] = mentor.experience;

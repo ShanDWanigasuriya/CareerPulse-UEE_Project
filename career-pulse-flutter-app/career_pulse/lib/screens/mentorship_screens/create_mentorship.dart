@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:io'; // For file handling
 import 'package:file_picker/file_picker.dart';
-import 'package:intl/intl.dart'; // For date formatting
+import 'package:intl/intl.dart';
+
+import '../../models/mentor.dart';
+import '../../services/mentor_service.dart'; // For date formatting
 
 class CreateMentorScreen extends StatefulWidget {
   const CreateMentorScreen({super.key});
@@ -14,6 +17,8 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
   final _formKey = GlobalKey<FormState>();
 
   // Form fields
+  String _mentorshipTitle = '';
+  String _mentorshipDescription = '';
   String _mentorName = '';
   String _mentorDescription = '';
   String _experience = '';
@@ -22,6 +27,9 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
 
   // For managing multiple time slots
   List<Map<String, dynamic>> _timeSlots = [];
+
+  // Project service instance
+  final MentorService _mentorService = MentorService();
 
   // File picker for document selection
   Future<void> _pickDocument() async {
@@ -89,17 +97,37 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // Create a Mentor instance
-      // Here you can add your code to submit the mentor details
-      // e.g., by calling an API or service.
+      // Create a Project instance
+      Mentorsip newMentorship = Mentorsip(
+          mentorshipId: 1,
+          mentorId: 0,
+          collaboratorId: 1,
+          mentorshipTitle: _mentorshipTitle,
+          mentorshipDescription: _mentorshipDescription,
+          mentorName: _mentorName,
+          mentorDescription: _mentorDescription,
+          experience: _experience,
+          expertise: _expertise,
+          isAvailable: true);
 
-      // Show a success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Mentor created successfully!')),
-      );
+      // Call the service to create the project
+      bool success =
+          await _mentorService.createMentor(newMentorship, _mentorDocument);
 
-      // Navigate back or reset form after success
-      Navigator.pushReplacementNamed(context, '/mentors');
+      if (success) {
+        // Show a success message
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Mentor created successfully!')),
+        );
+
+        // Navigate back or reset form after success
+        Navigator.pushReplacementNamed(context, '/mentors');
+      } else {
+        // Handle failure (e.g., show error message)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to create mentor.')),
+        );
+      }
     }
   }
 
@@ -115,6 +143,67 @@ class _CreateMentorScreenState extends State<CreateMentorScreen> {
           key: _formKey,
           child: ListView(
             children: [
+              const SizedBox(height: 16),
+
+              // Mentor Name
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Mentorship Title',
+                  labelStyle: const TextStyle(
+                    color: Color(0xFF001F54), // Navy blue text color
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF001F54)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF001F54)),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200], // Light grey background
+                ),
+                onSaved: (value) {
+                  _mentorshipTitle = value ?? '';
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter mentorship title';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Mentor Description
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Mentorship Description',
+                  labelStyle: const TextStyle(
+                    color: Color(0xFF001F54), // Navy blue text color
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF001F54)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: const BorderSide(color: Color(0xFF001F54)),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey[200], // Light grey background
+                ),
+                maxLines: 4,
+                onSaved: (value) {
+                  _mentorshipDescription = value ?? '';
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter mentorship description';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
 
               // Mentor Name
