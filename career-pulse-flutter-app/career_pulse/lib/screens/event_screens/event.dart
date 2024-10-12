@@ -28,9 +28,9 @@ class _EventScreenState extends State<EventScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                _buildLabel('All', 0),
                 _buildLabel('Upcoming', 1),
                 _buildLabel('Past', 2),
-                _buildLabel('All', 0),
               ],
             ),
           ),
@@ -153,7 +153,8 @@ class _VerticalEventListState extends State<VerticalEventList> {
             const SizedBox(height: 8),
             // View button aligned to the right
             Row(
-              mainAxisAlignment: MainAxisAlignment.end, // Align the button to the right
+              mainAxisAlignment:
+                  MainAxisAlignment.end, // Align the button to the right
               children: [
                 ElevatedButton(
                   onPressed: () async {
@@ -162,7 +163,8 @@ class _VerticalEventListState extends State<VerticalEventList> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => EventView(eventId: event.eventId),
+                          builder: (context) =>
+                              EventView(eventId: event.eventId),
                         ),
                       );
                     } catch (error) {

@@ -120,7 +120,7 @@ class _MentorScreenState extends State<MentorScreen> {
             Text(
               mentorship.mentorshipTitle,
               style: const TextStyle(
-                fontSize: 28,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),
@@ -130,9 +130,9 @@ class _MentorScreenState extends State<MentorScreen> {
             Text(
               mentorship.mentorshipDescription,
               style: const TextStyle(
-                fontSize: 19,
+                fontSize: 17,
                 fontWeight: FontWeight.w500,
-                color: Color.fromARGB(221, 44, 1, 1),
+                color: Colors.black87,
               ),
             ),
             const SizedBox(height: 8),

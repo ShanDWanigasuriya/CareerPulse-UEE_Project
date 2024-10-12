@@ -11,7 +11,11 @@ class ViewMentorship extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mentorship Details'),
+        title: const Text(
+          'Mentorship Details',
+          style: TextStyle(color: Colors.white), // Set title color to white
+        ),
+        backgroundColor: const Color(0xFF001F54), // Consistent color theme
       ),
       body: FutureBuilder<Mentorship>(
         future: MentorService().getMentorshipById(
@@ -26,191 +30,216 @@ class ViewMentorship extends StatelessWidget {
           }
 
           final mentorship = snapshot.data!;
-          return Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(24),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF001F54),
-                    borderRadius: BorderRadius.vertical(
-                      bottom: Radius.circular(30),
+          return SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24),
+                    decoration: const BoxDecoration(
+                      color: Color(0xFF001F54),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(30),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Text(
+                            mentorship.mentorshipTitle,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  const SizedBox(height: 16),
+
+                  // Description Section
+                  Text(
+                    mentorship.mentorshipDescription,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+
+                  // Mentor Information with Card and Icon Styling
+                  Card(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.person,
+                                color: Color(0xFF001F54),
+                                size: 30,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                mentorship.mentorName,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF001F54),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            mentorship.mentorDescription,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+
+                          // Experience Section
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.work_outline,
+                                color: Color(0xFF001F54),
+                                size: 28,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Experience',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF001F54),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            mentorship.mentorExperience,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          // Expertise Section
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.star_outline,
+                                color: Color(0xFF001F54),
+                                size: 28,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Expertise',
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Color(0xFF001F54),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            mentorship.mentorExpertise,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Optionally, display the document URL if available
+                  if (mentorship.mentorDocumentUrl != null)
+                    Center(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          // Handle download logic
+                        },
+                        icon: const Icon(Icons.download),
+                        label: const Text('Download Mentor Document'),
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 12, horizontal: 24),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                  const SizedBox(height: 32),
+
+                  // Book Session Button
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Center(
-                        child: Text(
-                          mentorship.mentorshipTitle,
-                          style: const TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: Color.fromARGB(221, 255, 255, 255),
+                      ElevatedButton(
+                        onPressed: () async {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Session booked successfully!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: 30,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          backgroundColor: const Color(0xFF001F54),
+                          elevation: 4,
+                        ),
+                        child: const Text(
+                          'Book Session',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ],
                   ),
-                ),
 
-                const SizedBox(height: 8),
-                Text(
-                  mentorship.mentorshipDescription,
-                  style: const TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w500,
-                    //fontStyle: FontStyle.italic,
-                    color: Color.fromARGB(221, 37, 1, 1),
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-                Center(
-                  child: Text(
-                    'Mentor Details',
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(221, 37, 1, 1),
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-                Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.center, // Centers vertically
-                  crossAxisAlignment:
-                      CrossAxisAlignment.center, // Centers horizontally
-                  children: [
-                    Text(
-                      mentorship.mentorName,
-                      style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(221, 37, 1, 1),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        'Experience',
-                        style: const TextStyle(
-                          fontSize: 19,
-                          //fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF001F54),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      mentorship.mentorExperience,
-                      style: const TextStyle(
-                        fontSize: 19,
-                        fontWeight: FontWeight.w500,
-                        color: Color.fromARGB(221, 37, 1, 1),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Center(
-                      child: Text(
-                        'Expertise',
-                        style: const TextStyle(
-                          //fontStyle: FontStyle.italic,
-                          fontSize: 19,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF001F54),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        mentorship.mentorExpertise,
-                        style: const TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(221, 37, 1, 1),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 16),
-                // // Optionally, display the document URL if available
-                // if (mentorship.mentorDocumentUrl != null)
-                //   Padding(
-                //     padding: const EdgeInsets.symmetric(horizontal: 16),
-                //     child: Center(
-                //       child: ElevatedButton.icon(
-                //         onPressed: () {},
-                //         icon: const Icon(Icons.download),
-                //         label: const Text('Download Document'),
-                //         style: ElevatedButton.styleFrom(
-                //           padding: const EdgeInsets.symmetric(
-                //               vertical: 12, horizontal: 24),
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment
-                      .center, // This centers the button horizontally
-                  children: [
-                    ElevatedButton(
-                      onPressed: () async {
-                        // Show SnackBar for success message
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Session booked successfully!'),
-                            backgroundColor:
-                                Colors.green, // Optional: to style the SnackBar
-                          ),
-                        );
-
-                        // Navigate or handle booking logic after showing the message
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => BookSessionScreen(
-                        //       mentorshipId: mentorship.mentorshipId!,
-                        //     ),
-                        //   ),
-                        // );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 30,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        backgroundColor:
-                            const Color(0xFF001F54), // Same color theme
-                        elevation: 4,
-                      ),
-                      child: const Text(
-                        'Book Session',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                const SizedBox(height: 32), // Bottom padding
-              ],
+                  const SizedBox(height: 32),
+                ],
+              ),
             ),
           );
         },
