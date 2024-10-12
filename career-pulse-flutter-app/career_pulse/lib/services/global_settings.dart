@@ -1,1 +1,1 @@
-const String baseApiUrl = 'https://7801-2407-c00-d001-e8c8-e5da-4b50-190a-97da.ngrok-free.app/api';
+const String baseApiUrl = 'https://b031-2407-c00-d001-e8c8-8811-8eac-32de-6b8f.ngrok-free.app/api';
