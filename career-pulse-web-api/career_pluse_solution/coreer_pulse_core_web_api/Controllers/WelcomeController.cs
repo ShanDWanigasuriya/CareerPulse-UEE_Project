@@ -18,5 +18,18 @@ namespace coreer_pulse_core_web_api.Controllers
         {
             return Ok(new { message = "Hello Career Pulse" });
         }
-    }
+
+        [HttpGet("MultipleReturn")]
+        public async Task<IActionResult> MultipleReturn()
+        {
+            var (asd,sad) = await get();
+            return Ok();
+        }
+
+
+		public Task<(string, int)> get()
+		{
+			return Task.FromResult(("hi", 10));
+		}
+	}
 }
